@@ -1,0 +1,27 @@
+####PENJELASAN GRUB PARAMETER####
+####AHMAD ZAIDI####
+
+##kode di bawah adalah header yang menyatakan bahwa parameter ini digunakan untuk OS Ubuntu##
+setparams 'ubuntu'
+
+##recordfail merupakan fitur dari GRUB2, fitur ini memungkinkan jika terjadi gagal booting maka pada boot berikutnya akan otomatis berhenti pada menu boot##
+	recordfail
+##load_video berdasarkan informasi dari forum ubuntu merupakan paramater yang diperlukan untuk booting kernel linux pada sistem uefi (komputer saya dual boot windows). Komputer saya dual boot windows dan ubuntu sehingga parameter ini di generated##
+	load_video
+##menurut GNU GRUB manual; parameter di bawah berfungsi untuk mengatur mode resoulusi yang dijalankan setelah booting##
+	gfxmode $linux_gfx_mode
+##menurut GNU GRUB manual, insmod merupakan parameter untuk memasukkan modul tertentu. Pada kasus ini modul yang dimasukkan adalah gzio yang merupakan modul untuk memberikan fitur Gzip I/O. Selanjutnya dibawah insmod gzio ada kelanjutan command yang memerintahkan jika grub platform adalah xxen maka insmod (insert module) lain yang berupa xzio dan lzopio. xzio merupakan modul untuk memberikan kemampuan untuk membaca dan menulis file compressed dengan format xz. Sementara itu lzopio merupakan modul untuk membaca, menulis file yang terkompress dengan lzop yang mirip dengan Gzip atau LZO. Setelah itu statement diakhiri dengan fi##
+	insmod gzio
+	if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+##masih sama seperti parameter di atas, pada parameter ini insmod memasukkan beberapa modul yang berkaitan dengan storage. part_gpt merupakan modul untuk mendukung jenis partisi berjenis GPT (GUID Partition Table) yang umum digunakan pada EFI sistem dan UEFI booting. Ext2 merupakan modul untuk mendukung partisi jenis ext2 yang umum digunakan pada sistem linux. Setelah itu set root merupakan statement untuk mengatur tempat root OS pada hd0 dan partisi gpt7. Kelanjutan statement ini selanjutnya berfokus pada evaluasi statement. Statement x$feature_platform_search_hint = xy menurut informasi dari forum askubuntu merupakan helper script yang tidak berhubungan dengan grub, ini adalah shell expression yang nantinya akan diinterpretasi oleh shell. Kemudian lanjutan statement ini mengevaluasi target strorage dengan kode uuid (universally unique identifiers)##
+	insmod part_gpt
+	Insmod ext2
+	set root ='hd0,gpt7'
+	if [ x$feature_platform_search_hint = xy ] then
+		search --no-floppy --fs-uuid --set=root --hint-bios=hd0, gpt7 --hint-baremetal=ahci0, gpt7 6c94867e-ba5e-4a63-a482-3af24564febe
+	else
+		search --no-floppy --fs-uuid --set=root 6c94867e-ba5e-4a63-a482-3af24564febe
+	fi
+##statement di bawah berikutnya berfungsi sebagai statement yang memerintah versi kernel mana yang di boot oleh OS. Pada kasus ini kernel yang digunakan adalah kernel 5.0.0.0.0-37-generic. quiet splash dan pci nomsi adalah parameter yang saya tambahkan sendiri karena saya mendapat error message secara terus menerus saat menginstall ubuntu pada laptop saya. Parameter ini membuat semua error message untuk di hiraukan dan langsung menuju proses booting##
+	linux	/boot/vmlinuz-5.0.0.0-37-generic root=UUID=6c94867e-ba5e-4a63-a482-3af24564febe ro quiet splash pci=nomsi $vt_handoff
+	initrd	/boot/initrd.img-5.0.0-37-generic

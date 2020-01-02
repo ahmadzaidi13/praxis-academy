@@ -1,0 +1,5 @@
+####Linux Kernel Location####
+
+Lokasi file kernel linux dapat ditemukan di /boot folder dan nama file linux kernel pada sistem ini bernama vmlinuz-5.0.0-32-generic. File ini sejatinya telah di compress oleh zlib compression. Hal ini ditandai dengan digantinya nama vmlinux menjadi vmlinuz untuk menandakan bahwa file telah di compress. Ada file penting lain seperti config-5.0.0-32-generic yang berfungsi untuk mengekstrak dan mengeksekusi file kernel sebenarnya. Selain itu system-map-5.0.0-32-generic berfungsi untuk file mapping yang digunakan untuk managemen memori sebelum sistem di load. File config-5.0.0-32-generic di samping itu berfungsi sebagai file yang mengandung konfigurasi yang memberi tahu kernel pilihan apa yang harus dijalankan dan modul apa yang harus dijalankan saat kernel sedang di compile.
+
+sumber:https://www.howtogeek.com/howto/31632/what-is-the-linux-kernel-and-what-does-it-do/

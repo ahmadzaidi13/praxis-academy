@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "masukkan angka keramat andaaa biar hoki"
+read n
+
+if [ $n -eq 101 ];
+if [ $n -eq 101 ];then
+echo "Selamat anda juara 1 balap karung"
+elif [ $n -eq 510 ];
+elif [ $n -eq 510 ];
+then
+echo "Selamat anda ga menang tapi juara 2 lumayan lah"
+elif [ $n -eq 999 ];
+elif [ $n -eq 999 ];
+echo "Seng penting dapet juara 3 mulih mulih"
+
+else
+echo "ga hoki, mulih"
+fi
