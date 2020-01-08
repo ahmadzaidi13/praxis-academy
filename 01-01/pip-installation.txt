@@ -1,0 +1,15 @@
+#Proses Instalasi PIP#
+
+PIP adalah package installer untuk python. Dengan pip kita dapat memasang paket untuk python dan Python Package Index dan index lainnya.
+untuk proses instalasi pip dapat menggunakan kode:
+<curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py>
+kemudian jalankan
+<python get-pip.py>
+
+Di samping itu untuk upgrade versi pip pada bash dapat menggunakan:
+<pip install -U pip>
+
+Untuk melihat versi pip di linux dapat menggunakan:
+<pip --version>
+atau
+<pip3 --version>
